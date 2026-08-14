@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block title %}Dashboard — Student Management{% endblock %}
+{% block content %}
+<div class="page-heading"><div><h1>Dashboard</h1><p>Overview of your school.</p></div></div>
+<div class="stats-grid">
+    <div class="stat-card"><span>Students</span><strong>{{ counts.students }}</strong><small>Active students</small></div>
+    <div class="stat-card"><span>Teachers</span><strong>{{ counts.teachers }}</strong><small>Active teachers</small></div>
+    <div class="stat-card"><span>Subjects</span><strong>{{ counts.subjects }}</strong><small>Cambridge subjects</small></div>
+    <div class="stat-card"><span>Courses</span><strong>{{ counts.courses }}</strong><small>Academic programmes</small></div>
+</div>
+<div class="card welcome-card">
+    <h2>Welcome to the Student Management System</h2>
+    <p>Manage students, Cambridge subjects, teachers, attendance, academic programmes, and school events from one place.</p>
+    <p>Student IDs are generated automatically and used throughout the system.</p>
+</div>
+{% endblock %}

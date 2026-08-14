@@ -1,0 +1,6 @@
+{% extends 'base.html' %}
+{% block title %}Teachers — Student Management{% endblock %}
+{% block content %}
+<div class="page-heading"><div><h1>Teachers</h1><p>See which teacher is assigned to each subject.</p></div><a class="button primary" href="{{ url_for('teacher_form') }}">Add Teacher</a></div>
+<div class="card table-card"><div class="table-wrap"><table><thead><tr><th>ID</th><th>Teacher ID</th><th>Name</th><th>Subject</th><th>Phone</th><th>Email</th><th>Qualification</th><th>Status</th><th></th></tr></thead><tbody>{% for t in teachers %}<tr><td>{{ t.id }}</td><td>{{ t.teacher_code }}</td><td><strong>{{ t.name }}</strong></td><td>{{ t.subject_name or '-' }}</td><td>{{ t.phone or '-' }}</td><td>{{ t.email or '-' }}</td><td>{{ t.qualification or '-' }}</td><td><span class="status">{{ t.status }}</span></td><td class="actions"><a href="{{ url_for('teacher_form', teacher_id=t.id) }}">Edit</a><form method="post" action="{{ url_for('delete_teacher', teacher_id=t.id) }}" onsubmit="return confirm('Delete this teacher?');"><button class="link danger-link">Delete</button></form></td></tr>{% else %}<tr><td colspan="9" class="empty">No teachers found.</td></tr>{% endfor %}</tbody></table></div></div>
+{% endblock %}

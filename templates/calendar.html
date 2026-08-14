@@ -1,0 +1,6 @@
+{% extends 'base.html' %}
+{% block title %}Calendar — Student Management{% endblock %}
+{% block content %}
+<div class="page-heading"><div><h1>Calendar</h1><p>School events and important dates.</p></div><a class="button primary" href="{{ url_for('event_form') }}">Add Event</a></div>
+<div class="card table-card"><div class="table-wrap"><table><thead><tr><th>ID</th><th>Title</th><th>Date</th><th>Type</th><th>Description</th><th></th></tr></thead><tbody>{% for e in events %}<tr><td>{{ e.id }}</td><td><strong>{{ e.title }}</strong></td><td>{{ e.event_date }}</td><td><span class="status">{{ e.event_type }}</span></td><td>{{ e.description or '-' }}</td><td class="actions"><a href="{{ url_for('event_form', event_id=e.id) }}">Edit</a><form method="post" action="{{ url_for('delete_event', event_id=e.id) }}" onsubmit="return confirm('Delete this event?');"><button class="link danger-link">Delete</button></form></td></tr>{% else %}<tr><td colspan="6" class="empty">No events found.</td></tr>{% endfor %}</tbody></table></div></div>
+{% endblock %}

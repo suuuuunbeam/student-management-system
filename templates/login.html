@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Login — Student Management System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="login-page">
+<div class="login-card">
+    <div class="brand login-brand">
+        <div class="brand-mark">SM</div>
+        <div><strong>Student</strong><span>Management</span></div>
+    </div>
+    <h1>Welcome back</h1>
+    <p class="muted">Sign in to manage your students.</p>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% for category, message in messages %}
+            <div class="flash {{ category }}">{{ message }}</div>
+        {% endfor %}
+    {% endwith %}
+
+    <form method="post" class="stack-form">
+        <label>Username</label>
+        <input name="username" autocomplete="username" required autofocus>
+        <label>Password</label>
+        <input type="password" name="password" autocomplete="current-password" required>
+        <button class="button primary full" type="submit">Login</button>
+    </form>
+    <div class="demo-note"><strong>Demo login</strong><br>admin / admin123</div>
+</div>
+</body>
+</html>

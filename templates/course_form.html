@@ -1,0 +1,6 @@
+{% extends 'base.html' %}
+{% block title %}{{ 'Edit' if course else 'Add' }} Course — Student Management{% endblock %}
+{% block content %}
+<div class="page-heading"><div><h1>{{ 'Edit Course' if course else 'Add Course' }}</h1><p>Academic programme details.</p></div><a class="button" href="{{ url_for('courses') }}">Back</a></div>
+<form method="post" class="card form-card"><div class="form-grid two"><div><label>Course Code *</label><input name="course_code" value="{{ course.course_code if course else '' }}" required></div><div><label>Name *</label><input name="name" value="{{ course.name if course else '' }}" required></div><div><label>Level</label><input name="level" value="{{ course.level if course else '' }}"></div><div class="span-2"><label>Description</label><textarea name="description" rows="4">{{ course.description if course else '' }}</textarea></div></div><div class="form-actions"><a class="button" href="{{ url_for('courses') }}">Cancel</a><button class="button primary" type="submit">Save Course</button></div></form>
+{% endblock %}

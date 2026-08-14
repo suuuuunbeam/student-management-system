@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block title %}Subjects — Student Management{% endblock %}
+{% block content %}
+<div class="page-heading"><div><h1>Subjects</h1><p>Cambridge subjects and student enrolment.</p></div></div>
+<div class="split-grid">
+<div class="card table-card"><div class="table-wrap"><table><thead><tr><th>ID</th><th>Code</th><th>Subject</th><th>Level</th></tr></thead><tbody>{% for s in subjects %}<tr><td>{{ s.id }}</td><td>{{ s.code }}</td><td>{{ s.name }}</td><td>{{ s.level }}</td></tr>{% endfor %}</tbody></table></div></div>
+<div class="side-stack">
+<div class="card"><h2>Add Subject to Student</h2><p class="muted">Select a student by ID or exact name.</p>
+<form method="get" action="{{ url_for('subjects') }}" class="stack-form"><label>Student ID</label><input name="student_id" type="number" value="{{ selected_student.id if selected_student else '' }}" placeholder="Student database ID"><button class="button primary" type="submit">Find Student</button></form>
+{% if selected_student %}<div class="student-mini"><strong>{{ selected_student.name }}</strong><span>{{ selected_student.student_code }} · Class {{ selected_student.class_name }}</span></div>
+<form method="post" action="{{ url_for('add_subject') }}" class="stack-form"><input type="hidden" name="student_id" value="{{ selected_student.id }}"><label>Subject</label><select name="subject_id" required>{% for s in subjects %}<option value="{{ s.id }}">{{ s.code }} — {{ s.name }}</option>{% endfor %}</select><label>Academic Year</label><input name="academic_year" value="{{ current_year }}"><button class="button primary" type="submit">Add Subject</button></form>{% endif %}</div>
+<div class="card"><h2>Student's Subjects</h2>{% if enrolled %}<div class="list">{% for item in enrolled %}<div class="list-row"><span>{{ item.code }} — {{ item.name }} <small>({{ item.academic_year or '-' }})</small></span><form method="post" action="{{ url_for('remove_subject') }}"><input type="hidden" name="student_id" value="{{ selected_student.id }}"><input type="hidden" name="subject_id" value="{{ item.id }}"><button class="link danger-link">Remove</button></form></div>{% endfor %}</div>{% else %}<p class="muted">No student selected or no subjects enrolled.</p>{% endif %}</div>
+</div></div>
+{% endblock %}

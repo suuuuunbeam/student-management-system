@@ -1,0 +1,7 @@
+{% extends 'base.html' %}
+{% block title %}Attendance — Student Management{% endblock %}
+{% block content %}
+<div class="page-heading"><div><h1>Attendance</h1><p>Record attendance using student ID or name.</p></div></div>
+<div class="card attendance-form"><form method="post" class="form-grid four"><div><label>Student ID / Name</label><input name="student" placeholder="2026-10-001 or name" required></div><div><label>Date</label><input type="date" name="date" value="{{ selected_date }}" required></div><div><label>Status</label><select name="status"><option>Present</option><option>Absent</option><option>Late</option><option>Excused</option></select></div><div><label>Note</label><input name="note" placeholder="Optional"></div><div class="span-4"><button class="button primary" type="submit">Save Attendance</button></div></form></div>
+<div class="card table-card"><div class="table-wrap"><table><thead><tr><th>ID</th><th>Student ID</th><th>Name</th><th>Class</th><th>Date</th><th>Status</th><th>Note</th></tr></thead><tbody>{% for a in attendance %}<tr><td>{{ a.id }}</td><td>{{ a.student_code }}</td><td>{{ a.name }}</td><td>{{ a.class_name }}</td><td>{{ a.date }}</td><td><span class="status">{{ a.status }}</span></td><td>{{ a.note or '-' }}</td></tr>{% else %}<tr><td colspan="7" class="empty">No attendance records for this date.</td></tr>{% endfor %}</tbody></table></div></div>
+{% endblock %}

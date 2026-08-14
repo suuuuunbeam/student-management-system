@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en" data-theme="{{ theme }}">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Student Management System{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+        <div class="brand">
+            <div class="brand-mark">SM</div>
+            <div>
+                <strong>Student</strong>
+                <span>Management</span>
+            </div>
+        </div>
+
+        <nav class="nav">
+            {% for key, label in menu %}
+            <a class="nav-link {% if request.endpoint == key or (key == 'calendar' and request.endpoint == 'calendar_page') or (key == 'students' and request.endpoint in ['students','student_form','delete_student']) or (key == 'teachers' and request.endpoint in ['teachers','teacher_form','delete_teacher']) or (key == 'courses' and request.endpoint in ['courses','course_form','delete_course']) %}active{% endif %}" href="{{ url_for(key if key != 'calendar' else 'calendar_page') }}">
+                {{ label }}
+            </a>
+            {% endfor %}
+        </nav>
+
+        <div class="sidebar-bottom">
+            <a class="logout-link" href="{{ url_for('logout') }}">Log out</a>
+        </div>
+    </aside>
+
+    <main class="main">
+        <header class="topbar">
+            <button class="menu-button" onclick="toggleSidebar()" aria-label="Open menu">☰</button>
+            <div class="topbar-spacer"></div>
+            <span class="user-pill">{{ current_user }}</span>
+        </header>
+
+        <section class="content">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    <div class="flash-stack">
+                    {% for category, message in messages %}
+                        <div class="flash {{ category }}">{{ message }}</div>
+                    {% endfor %}
+                    </div>
+                {% endif %}
+            {% endwith %}
+
+            {% block content %}{% endblock %}
+        </section>
+    </main>
+</div>
+<script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>

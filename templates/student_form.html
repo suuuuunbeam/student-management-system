@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block title %}{{ 'Edit' if student else 'Add' }} Student — Student Management{% endblock %}
+{% block content %}
+<div class="page-heading"><div><h1>{{ 'Edit Student' if student else 'Add Student' }}</h1><p>Student information and contact details.</p></div><a class="button" href="{{ url_for('students') }}">Back</a></div>
+<form method="post" class="card form-card">
+    {% if student %}<div class="id-banner">Student ID: <strong>{{ student.student_code }}</strong></div>{% endif %}
+    <div class="form-grid three">
+        <div><label>Full Name *</label><input name="name" value="{{ student.name if student else '' }}" required></div>
+        <div><label>Date of Birth</label><input type="date" name="dob" value="{{ student.dob if student else '' }}"></div>
+        <div><label>Gender</label><select name="gender"><option value="">Select</option>{% for v in ['Male','Female','Other'] %}<option {% if student and student.gender == v %}selected{% endif %}>{{ v }}</option>{% endfor %}</select></div>
+        <div><label>Class / Level *</label><select name="class_name" required>{% for v in ['Playgroup','Nursery','KG'] + (range(1,13)|map('string')|list) %}<option {% if (student.class_name if student else 'Playgroup') == v %}selected{% endif %}>{{ v }}</option>{% endfor %}</select></div>
+        <div><label>Section</label><input name="section" value="{{ student.section if student else '' }}"></div>
+        <div><label>Admission Year *</label><input type="number" name="admission_year" value="{{ student.admission_year if student and student.admission_year else 2026 }}" required></div>
+        <div><label>Phone</label><input name="phone" value="{{ student.phone if student else '' }}"></div>
+        <div><label>Email</label><input type="email" name="email" value="{{ student.email if student else '' }}"></div>
+        <div><label>Status</label><select name="status">{% for v in ['Active','Inactive','Graduated','Transferred'] %}<option {% if (student.status if student else 'Active') == v %}selected{% endif %}>{{ v }}</option>{% endfor %}</select></div>
+        <div><label>Guardian Name</label><input name="guardian_name" value="{{ student.guardian_name if student else '' }}"></div>
+        <div><label>Guardian Phone</label><input name="guardian_phone" value="{{ student.guardian_phone if student else '' }}"></div>
+        <div class="span-3"><label>Address</label><input name="address" value="{{ student.address if student else '' }}"></div>
+    </div>
+    {% if not student %}<p class="hint">Student ID is generated automatically, for example 2026-07-001.</p>{% endif %}
+    <div class="form-actions"><a class="button" href="{{ url_for('students') }}">Cancel</a><button class="button primary" type="submit">Save Student</button></div>
+</form>
+{% endblock %}

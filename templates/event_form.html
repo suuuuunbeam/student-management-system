@@ -1,0 +1,6 @@
+{% extends 'base.html' %}
+{% block title %}{{ 'Edit' if event else 'Add' }} Event — Student Management{% endblock %}
+{% block content %}
+<div class="page-heading"><div><h1>{{ 'Edit Event' if event else 'Add Event' }}</h1><p>Create a school calendar event.</p></div><a class="button" href="{{ url_for('calendar_page') }}">Back</a></div>
+<form method="post" class="card form-card"><div class="form-grid two"><div><label>Title *</label><input name="title" value="{{ event.title if event else '' }}" required></div><div><label>Date *</label><input type="date" name="event_date" value="{{ event.event_date if event else '' }}" required></div><div><label>Type</label><select name="event_type">{% for v in ['General','Exam','Holiday','Meeting','Activity'] %}<option {% if event and event.event_type == v %}selected{% endif %}>{{ v }}</option>{% endfor %}</select></div><div class="span-2"><label>Description</label><textarea name="description" rows="4">{{ event.description if event else '' }}</textarea></div></div><div class="form-actions"><a class="button" href="{{ url_for('calendar_page') }}">Cancel</a><button class="button primary" type="submit">Save Event</button></div></form>
+{% endblock %}

@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block title %}Settings — Student Management{% endblock %}
+{% block content %}
+<div class="page-heading"><div><h1>Settings</h1><p>Application preferences.</p></div></div>
+<div class="settings-grid">
+    <div class="card"><h2>Appearance</h2><p class="muted">Switch between the light and dark themes.</p><div class="theme-choice"><strong>Current theme</strong><span class="status">{{ theme|capitalize }}</span></div><div class="theme-buttons"><form method="post" action="{{ url_for('set_theme') }}"><input type="hidden" name="theme" value="light"><button class="button {% if theme == 'light' %}primary{% endif %}" type="submit">Light</button></form><form method="post" action="{{ url_for('set_theme') }}"><input type="hidden" name="theme" value="dark"><button class="button {% if theme == 'dark' %}primary{% endif %}" type="submit">Dark</button></form></div></div>
+    <div class="card"><h2>Login Account</h2><p class="muted">Account management will be available in a future version.</p><div class="account-row"><span>Username</span><strong>{{ username }}</strong></div><div class="account-row"><span>Password</span><strong>••••••••••</strong></div><div class="construction-box">UNDER CONSTRUCTION<br><small>Change username and password will be added when the mobile-ready authentication system is built.</small></div><div class="theme-buttons"><button class="button disabled" type="button">Change Username — Under Construction</button><button class="button disabled" type="button">Change Password — Under Construction</button></div></div>
+</div>
+{% endblock %}
