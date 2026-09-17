@@ -1,11 +1,19 @@
+import os
 from datetime import date
 from functools import wraps
 from flask import Flask, flash, redirect, render_template, request, session, url_for
 import database
 
 app = Flask(__name__)
-app.secret_key = "change-this-demo-secret-before-production"
+app.secret_key = os.environ.get("FLASK_SECRET_KEY", "local-development-secret-change-me")
 app.config["TEMPLATES_AUTO_RELOAD"] = True
+
+if not app.secret_key or app.secret_key == "local-development-secret-change-me":
+    app.config["SESSION_COOKIE_SECURE"] = False
+else:
+    app.config["SESSION_COOKIE_SECURE"] = True
+app.config["SESSION_COOKIE_HTTPONLY"] = True
+app.config["SESSION_COOKIE_SAMESITE"] = "Lax"
 
 database.create_database()
 
