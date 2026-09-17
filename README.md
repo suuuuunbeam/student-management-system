@@ -1,31 +1,41 @@
-# Student Management System — Web Version
+# Student Management System
 
-This is the browser version of the Tkinter Student Management System.
+A browser-based student management system built with Python and Flask. I built it as a practical way to turn the original Tkinter version into a web application with a proper database-backed interface.
 
-## Features
-- Admin login (`admin` / `admin123` for the demo)
-- Dashboard
-- Students CRUD
-- Cambridge subjects and student enrolment
-- Teachers CRUD
-- Attendance
-- Courses CRUD
-- Calendar events CRUD
+## What it does
+
+- Admin login and session-based access
+- Dashboard with student, teacher, subject and course counts
+- Student records: create, search, edit and delete
+- Automatically generated student IDs
+- Cambridge-focused subject list and student enrolment
+- Teacher records with subject assignment
+- Attendance tracking by student and date
+- Academic course/programme management
+- School calendar and event management
 - Light/dark theme
-- Settings page with account controls marked **UNDER CONSTRUCTION**
-- Responsive layout for desktop and mobile browsers
+- Responsive interface for desktop and mobile screens
+
+## Tech stack
+
+- Python
+- Flask
+- SQLite
+- Jinja templates
+- HTML/CSS
+- Gunicorn for deployment
 
 ## Run locally
 
-1. Install Python.
-2. Open a terminal in this folder.
+1. Install Python 3.10+.
+2. Clone this repository and open the project folder.
 3. Install the dependencies:
 
 ```bash
 pip install -r requirements.txt
 ```
 
-4. Start the website:
+4. Start the app:
 
 ```bash
 python app.py
@@ -33,11 +43,27 @@ python app.py
 
 5. Open `http://127.0.0.1:5000` in your browser.
 
-## Deploy later
+The app creates its local SQLite database automatically on first run. The database file is intentionally ignored by Git and is not included in this repository.
 
-Push the folder to GitHub and deploy it as a Python web service. For Render, use:
+## Demo login
 
-- Build command: `pip install -r requirements.txt`
-- Start command: `gunicorn app:app`
+For local/demo use only:
 
-Before public production use, replace the demo secret key, add proper password hashing, CSRF protection, and move from SQLite to a hosted database if multiple users will edit data at the same time.
+- Username: `admin`
+- Password: `admin123`
+
+These credentials are not suitable for a production deployment.
+
+## Project notes
+
+This is a learning/portfolio project rather than a production-ready school information system. Before using it with real student data, authentication and security should be strengthened, including password hashing, CSRF protection, a production secret key, and a hosted database where appropriate.
+
+## Deployment
+
+The application can be run as a Python web service using Gunicorn:
+
+```bash
+gunicorn app:app
+```
+
+For a real deployment, environment-based configuration and production security settings should be added before exposing the application publicly.
